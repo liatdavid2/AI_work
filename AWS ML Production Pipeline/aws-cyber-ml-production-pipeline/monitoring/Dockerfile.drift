@@ -1,0 +1,29 @@
+# =========================================
+# Drift / Monitoring Batch Job
+# =========================================
+FROM python:3.10-slim
+
+# Prevent Python from writing pyc files
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Set work directory
+WORKDIR /app
+
+# System deps (needed for parquet / numpy)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY monitoring/requirements.drift.txt .
+RUN pip install --no-cache-dir -r requirements.drift.txt
+
+# Copy drift job code
+COPY monitoring/nightly_drift_job.py .
+
+COPY monitoring/data ./data
+
+# Default command (batch job)
+CMD ["python", "nightly_drift_job.py"]
