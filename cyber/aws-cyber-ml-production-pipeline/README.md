@@ -1,14 +1,14 @@
 # Production ML Pipeline for Cyber Network Traffic (Docker + AWS)
 
 ## Overview
-End-to-end production ML system for network flow classification.
-Provides a REST API for inference, stores predictions to S3, and supports basic monitoring and drift detection.
+End-to-end production ML system for network flow classification. Provides a REST API for inference, stores predictions to AWS S3, supports basic monitoring and drift detection, and supports offline retraining based on newly collected labeled data.
 
 ## Architecture
 - FastAPI-based inference service
 - Dockerized deployment
 - AWS S3 for inference data storage
 - Drift detection job (PSI-based)
+- Support for offline model retraining using newly labeled production data
 
 ## Tech Stack
 - Python, FastAPI
