@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+joblib
+shap
+boto3
+pyarrow
+xgboost==2.0.3
