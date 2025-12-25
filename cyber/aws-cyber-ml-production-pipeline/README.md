@@ -19,47 +19,35 @@ Provides a REST API for inference, stores predictions to S3, and supports basic 
 ---
 ## Project Structure
 
-aws-cyber-ml-production-pipeline/
-│
-├── api/
-│   ├── model/
-│   │   ├── model_with_5labels.joblib   # Trained ML model used for inference
-│   │   └── rf_features.joblib          # Feature schema aligned with the model
-│   │
-│   ├── api.py                          # FastAPI inference service
-│   ├── graph.py                        # Inference logic and model execution flow
-│   ├── __init__.py
-│   ├── Dockerfile.api                  # Docker image for inference API
-│   └── requirements.api.txt            # API dependencies
-│
-├── monitoring/
-│   ├── data/                           # Reference / inference samples for drift analysis
-│   ├── drift_reports/
-│   │   └── drift_report_samples_*.csv  # PSI-based drift reports
-│   │
-│   ├── nightly_drift_job.py            # Offline drift detection job
-│   ├── Dockerfile.drift                # Docker image for drift detection
-│   └── requirements.drift.txt          # Drift job dependencies
-│
-├── training/
-│   ├── data/
-│   │   ├── baseline/                   # Original labeled training data (e.g. UNSW-NB15)
-│   │   └── labeled_from_prod/           # Labeled samples collected from production
-│   │
-│   ├── data_ingestion/
-│   │   └── merge_datasets.py            # Merges baseline and production-labeled data
-│   │
-│   ├── models/
-│   │   └── train_xgb.py                 # Offline model training script
-│   │
-│   ├── preprocessing/
-│   │   └── split.py                     # Train / validation / test split logic
-│   │
-│   ├── run_pipeline.py                  # End-to-end training pipeline entry point
-│   ├── Dockerfile.training              # Docker image for training pipeline
-│   └── requirements.training.txt        # Training dependencies
-│
-└── README.md                            # Project documentation
+**api/**
+- `model/`
+  - `model_with_5labels.joblib` – trained model used for inference
+  - `rf_features.joblib` – feature schema aligned with the model
+- `api.py` – FastAPI inference service
+- `graph.py` – inference logic and execution flow
+- `Dockerfile.api` – Docker image for inference API
+- `requirements.api.txt` – API dependencies
+
+**monitoring/**
+- `data/` – reference and inference samples for drift analysis
+- `drift_reports/` – generated PSI-based drift reports
+- `nightly_drift_job.py` – offline drift detection job
+- `Dockerfile.drift` – Docker image for drift detection
+- `requirements.drift.txt` – drift job dependencies
+
+**training/**
+- `data/`
+  - `baseline/` – original labeled training data (UNSW-NB15)
+  - `labeled_from_prod/` – samples collected and labeled from production
+- `data_ingestion/`
+  - `merge_datasets.py` – merges baseline and production-labeled data
+- `models/`
+  - `train_xgb.py` – offline model training script
+- `preprocessing/`
+  - `split.py` – train / validation / test split logic
+- `run_pipeline.py` – end-to-end training pipeline entry point
+- `Dockerfile.training` – Docker image for training pipeline
+- `requirements.training.txt` – training dependencies
 ---
 
 
